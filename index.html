@@ -9,20 +9,47 @@
 <body>
 <script>
     let arr = [];
-    for(let i = 0; i < 20; i++){
+    for (let i = 0; i < 20; i++) {
         arr[i] = Math.floor(Math.random() * 100)
     }
-    console.log(arr)
-    for(let i = 0; i < arr.length;i++){
-        for(let j = i+1; j < arr.length ;j++){
-            if(arr[i] > arr[j]){
-                let temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
+
+    function sort(arr) {
+        for (let i = 0; i < arr.length; i++) {
+            for (let j = i + 1; j < arr.length; j++) {
+                if (arr[i] > arr[j]) {
+                    let temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+        return arr
+    }
+
+    arr = sort(arr);
+    console.log(arr);
+    const findItem = arr[Math.floor(Math.random() * arr.length)];
+    console.log(findItem);
+    console.log("--");
+    console.log(binarySearch(findItem, arr));
+
+    function binarySearch(findItem, arr) {
+        let index = 0;
+        while (true) {
+            let mid = Math.floor(arr.length / 2);
+            if (arr[mid] === findItem)
+                return mid + index;
+            else {
+                if (findItem < arr[mid])
+                    arr = arr.slice(0, mid);
+                else {
+                    arr = arr.slice(mid + 1, arr.length);
+                    index += mid + 1;
+                }
             }
         }
     }
-    console.log(arr)
+
 </script>
 </body>
 </html>
