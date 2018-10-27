@@ -2,9 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" href="favicon.ico">
     <title>Title</title>
+
 </head>
 <body>
-
+<script>
+    let arr = [];
+    for(let i = 0; i < 20; i++){
+        arr[i] = Math.floor(Math.random() * 100)
+    }
+    console.log(arr)
+    for(let i = 0; i < arr.length;i++){
+        for(let j = 0; j < arr.length - 1;j++){
+            if(arr[i] < arr[j]){
+                let temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+    console.log(arr)
+</script>
 </body>
 </html>
