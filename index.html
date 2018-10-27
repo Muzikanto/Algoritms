@@ -43,16 +43,16 @@
         ]
     };
 
-    console.log(test(treeData));
+    console.log(treeInWidth(treeData));
 
-    function test(tree) {
+    function treeInWidth(tree) {
         let result = [];
-        let och = [tree];
-        for(let i = 0; i < och.length; i++){
-            result.push(och[i].value);
-            if(och[i].child)
-            for(let j = 0; j < och[i].child.length; j++){
-                och.push(och[i].child[j])
+        let queue = [tree];
+        for(let i = 0; i < queue.length; i++){
+            result.push(queue[i].value);
+            if(queue[i].child)
+            for(let j = 0; j < queue[i].child.length; j++){
+                queue.push(queue[i].child[j])
             }
         }
         return result;
