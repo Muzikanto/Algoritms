@@ -8,9 +8,12 @@
 </head>
 <body>
 <script>
-    const str = "({()})";
-    console.log(str);
-    console.log(balanceString(str));
+    ["({()})", "{(})", "[({])]"].forEach(function(el){
+        console.log(el);
+    console.log(balanceString(el));
+    });
+
+
 
     function balanceString(str) {
         const buffer = [];
