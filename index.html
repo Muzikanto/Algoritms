@@ -8,35 +8,38 @@
 </head>
 <body>
 <script>
+    //Task 3
     ["({()})", "{(})", "[({])]"].forEach(function(el){
         console.log(el);
     console.log(balanceString(el));
     });
 
-
-
     function balanceString(str) {
-        const buffer = [];
+        const br = {
+          '}':'{',
+          ']':'[',
+          ')':'('
+        };
 
+        const buffer = [];
         for (let i = 0; i < str.length; i++) {
             if (str[i] === '(' || str[i] === '[' || str[i] === '{')
                 buffer.push(str[i]);
             else if (buffer.length !== 0 && str[i] === ')' || str[i] === ']' || str[i] === '}') {
-                if (str[i] === ')' && buffer[buffer.length - 1] === '(')
-                    buffer.pop();
-                else if (str[i] === ']' && buffer[buffer.length - 1] === '[')
-                    buffer.pop();
-                else if (str[i] === '}' && buffer[buffer.length - 1] === '{')
-                    buffer.pop();
-                else
-                    return false;
+                let cb = br[str[i]];
+                if(cb) {
+                    if(buffer[buffer.length-1] ===cb )
+                        buffer.pop();
+                    else
+                        return false;
+                }
             }
-
         }
         return buffer.length === 0
     }
 
     /*
+    //Task 1
     let arr = [];
     for (let i = 0; i < Math.floor(Math.random() * (20 - 10)+10); i++) {
         arr[i] = Math.floor(Math.random() * 100)
@@ -56,6 +59,9 @@
     }
 
     arr = sort(arr);
+
+
+    //Task 2
     console.log(arr);
     const findItem = arr[Math.floor(Math.random() * arr.length)];
     console.log(findItem);
