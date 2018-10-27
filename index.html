@@ -15,22 +15,22 @@
     });
 
     function balanceString(str) {
-        const close = {
+        const closeBr = {
             '}': '{',
             ']': '[',
             ')': '('
         };
-        const open = {
+        const openBr = {
             '{': '}',
             '[': ']',
             '(': ')'
         };
         const stack = [];
         for (let i = 0; i < str.length; i++) {
-            if (open[str[i]])
+            if (openBr[str[i]])
                 stack.push(str[i]);
             else {
-                let cb = close[str[i]];
+                let cb = closeBr[str[i]];
                 if (cb) {
                     if (stack[stack.length - 1] === cb)
                         stack.pop();
