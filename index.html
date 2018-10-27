@@ -34,6 +34,8 @@
     console.log(binarySearch(findItem, arr));
 
     function binarySearch(findItem, arr) {
+        if(arr.length === 0)
+            return -1;
         let index = 0;
         while (true) {
             let mid = Math.floor(arr.length / 2);
