@@ -48,12 +48,13 @@
     function treeInWidth(tree) {
         let result = [];
         let queue = [tree];
-        for(let i = 0; i < queue.length; i++){
-            result.push(queue[i].value);
-            if(queue[i].child)
-            for(let j = 0; j < queue[i].child.length; j++){
-                queue.push(queue[i].child[j])
-            }
+        for (let i = 0; i < queue.length; i++) {
+            let item = queue[i];
+            result.push(item.value);
+            if (item.child)
+                for (let j = 0; j < item.child.length; j++) {
+                    queue.push(item.child[j])
+                }
         }
         return result;
     }
