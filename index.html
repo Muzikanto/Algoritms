@@ -9,33 +9,37 @@
 <body>
 <script>
     //Task 3
-    ["({()})", "{(})", "[({])]"].forEach(function(el){
+    ["({()})", "{(})", "[({])]"].forEach(function (el) {
         console.log(el);
-    console.log(balanceString(el));
+        console.log(balanceString(el));
     });
 
     function balanceString(str) {
-        const br = {
-          '}':'{',
-          ']':'[',
-          ')':'('
+        const close = {
+            '}': '{',
+            ']': '[',
+            ')': '('
         };
-
-        const buffer = [];
+        const open = {
+            '{': '}',
+            '[': ']',
+            '(': ')'
+        };
+        const stack = [];
         for (let i = 0; i < str.length; i++) {
-            if (str[i] === '(' || str[i] === '[' || str[i] === '{')
-                buffer.push(str[i]);
-            else if (buffer.length !== 0 && str[i] === ')' || str[i] === ']' || str[i] === '}') {
-                let cb = br[str[i]];
-                if(cb) {
-                    if(buffer[buffer.length-1] ===cb )
-                        buffer.pop();
+            if (open[str[i]])
+                stack.push(str[i]);
+            else {
+                let cb = close[str[i]];
+                if (cb) {
+                    if (stack[stack.length - 1] === cb)
+                        stack.pop();
                     else
                         return false;
                 }
             }
         }
-        return buffer.length === 0
+        return stack.length === 0
     }
 
     /*
