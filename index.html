@@ -34,13 +34,21 @@
     console.log(binarySearch(findItem, arr));
 
     function binarySearch(findItem, arr) {
-        if(arr.length === 0)
+        if (arr.length === 0)
             return -1;
         let index = 0;
-        while (arr.length > 1) {
+        while (arr.length >= 1) {
             let mid = Math.floor(arr.length / 2);
-            if (arr[mid] === findItem)
-                return mid + index;
+            if (arr[mid] === findItem) {
+                let result = mid + index;
+                for (let i = mid + index; i >= 0; i--) {
+                    if (arr[i] === findItem)
+                        result = i;
+                    else
+                        break;
+                }
+                return result;
+            }
             else {
                 if (findItem < arr[mid])
                     arr = arr.slice(0, mid);
