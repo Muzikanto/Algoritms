@@ -51,10 +51,7 @@
         for (let i = 0; i < queue.length; i++) {
             let item = queue[i];
             result.push(item.value);
-            if (item.child)
-                for (let j = 0; j < item.child.length; j++) {
-                    queue.push(item.child[j])
-                }
+            if (item.child) queue.push.apply(queue, item.child)
         }
         return result;
     }
