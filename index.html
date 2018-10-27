@@ -42,8 +42,25 @@
             }
         ]
     };
-    console.log(getArrTree(treeData));
 
+    console.log(test(treeData));
+
+    function test(tree) {
+        let result = [];
+        let och = [tree];
+        for(let i = 0; i < och.length; i++){
+            result.push(och[i].value);
+            if(och[i].child)
+            for(let j = 0; j < och[i].child.length; j++){
+                och.push(och[i].child[j])
+            }
+        }
+        return result;
+    }
+
+    /*
+    //Task 4
+    console.log(getArrTree(treeData));
     function getArrTree(tree) {
         let result = [];
         getData(tree);
@@ -55,11 +72,10 @@
                 });
             result.push(tree.value)
         }
-
         return result;
     }
 
-    /*
+
     //Task 3
     ["({()})", "{(})", "[({])]"].forEach(function (el) {
         console.log(el);
