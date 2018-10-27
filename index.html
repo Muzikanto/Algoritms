@@ -37,7 +37,7 @@
         if(arr.length === 0)
             return -1;
         let index = 0;
-        while (true) {
+        while (arr.length > 1) {
             let mid = Math.floor(arr.length / 2);
             if (arr[mid] === findItem)
                 return mid + index;
