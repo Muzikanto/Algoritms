@@ -47,16 +47,15 @@
     function getArrTree(tree) {
         let result = [];
         getData(tree);
+
         function getData(tree) {
-            if (!tree.child)
-                result.push(tree.value);
-            else {
+            if (tree.child)
                 tree.child.forEach(function (t) {
                     getData(t);
                 });
-                result.push(tree.value)
-            }
+            result.push(tree.value)
         }
+
         return result;
     }
 
