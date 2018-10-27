@@ -12,13 +12,15 @@
     console.log(getEasyNumbers(number));
 
     function getEasyNumbers(number) {
-        let result = [2];
-        let valueToBreak = Math.sqrt(number);
+        const result = [2];
+        const valueToBreak = Math.sqrt(number);
         for (let value = 3; value < number; value += 2) {
             let toAdd = true;
             for (let j = 0; j < result.length && j < valueToBreak; j++)
-                if (value % result[j] === 0)
+                if (value % result[j] === 0) {
                     toAdd = false;
+                    break;
+                }
             if (toAdd)
                 result.push(value)
         }
