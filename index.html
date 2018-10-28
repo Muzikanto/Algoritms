@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> 
+<head>
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="favicon.ico">
     <title>Title</title>
@@ -8,12 +8,12 @@
 <body>
 <script>
     //Массив
-    let arr = [];
+    let arrData = [];
     for (let i = 0; i < 21; i++) {
-        arr[i] = Math.floor(Math.random() * 100);
+        arrData[i] = Math.floor(Math.random() * 100);
     }
-    console.log(arr);
-    
+    console.log(arrData);
+
     //Дерево
     let treeData = {
         value: 5,
@@ -37,8 +37,8 @@
             }
         ]
     };
-    console.log(tree)
-    
+    console.log(treeData);
+
 
     // Task 7 Сортировка шейкером
     function sheikerSort(arr) {
@@ -61,8 +61,7 @@
             ...resultMax.reverse()
         ];
     }
-    console.log("Task 7 Сортировка шейкером")
-    console.log(sheikerSort(arr));
+    //console.log(sheikerSort(arrData));
 
 
     // Task 6 Получить массив простых чисел до указанного числа
@@ -79,8 +78,7 @@
         }
         return result;
     }
-    console.log("Task 6 Получить массив простых чисел до указанного числа")
-    console.log(getEasyNumbers(1000));
+    //console.log(getEasyNumbers(1000));
 
 
     //Task 5 Обход дерева в ширину
@@ -94,8 +92,7 @@
         }
         return result;
     }
-    console.log("Task 5 Обход дерева в ширину")
-    console.log(treeInWidth(treeData));
+    //console.log(treeInWidth(treeData));
 
 
     //Task 4 Обход дерева в глубину
@@ -108,8 +105,7 @@
         }
         return result;
     }
-    console.log("Task 4 Обход дерева в глубину")
-    console.log(getArrTree(treeData));
+    //console.log(getArrTree(treeData));
 
 
     //Task 3 Балансировка строки по скобкам
@@ -137,11 +133,10 @@
         }
         return stack.length === 0
     }
-    console.log("Task 3 Балансировка строки по скобкам")
-    ["({()})", "{(})", "[({])]"].forEach(function (el) {
+    /*["({()})", "{(})", "[({])]"].forEach(function (el) {
         console.log(el);
         console.log(balanceString(el));
-    });
+    });*/
 
 
     //Task 2 Бинарный поиск
@@ -167,10 +162,9 @@
             }
         }
     }
-    console.log("Task 2 Бинарный поиск")
-    let findItem = arr[Math.floor(Math.random() * arr.length)];
-    console.log(findItem)
-    console.log(binarySearch(findItem, arr));
+    //let findItem = arrData[Math.floor(Math.random() * arrData.length)];
+    //console.log(findItem)
+    //console.log(binarySearch(findItem, arrData));
 
 
     //Task 1  Сортировка пузырьком
@@ -186,8 +180,8 @@
         }
         return arr
     }
-    console.log("Task 1  Сортировка пузырьком")
-    console.log(sort(arr));
+    //console.log(sort(arrData));
+    
 </script>
 </body>
 </html>
