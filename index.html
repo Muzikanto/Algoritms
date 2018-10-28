@@ -10,43 +10,29 @@ let treeData = {
     child: [
         {
             value: 1,
-            child: [
-                {
-                    value: 2
-                }
-            ]
+            child: [{value: 2}]
         },
         {
             value: 17,
             child: [
                 {
                     value: 13,
-                    child: [
-                        {
-                            value: 14
-                        }
-                    ]
+                    child: [{value: 14}]
                 },
                 {
                     value: 15,
-                    child: [
-                        {
-                            value: 16
-                        }
-                    ]
+                    child: [{value: 16}]
                 }
             ]
         }
     ]
 };
 
-/*
 
 // Task 7 Сортировка шейкером
 function sheikerSort(arr) {
     let resultMin = [];
     let resultMax = [];
-
     while (arr.length > 1) {
         let min = 0, max = 0;
         for (let i = 1; i < arr.length; i++) {
@@ -55,12 +41,10 @@ function sheikerSort(arr) {
         }
         resultMin.push(arr[min]);
         resultMax.push(arr[max]);
-
         arr.splice(Math.max(min, max), 1);
         arr.splice(Math.min(min, max), 1);
     }
-    if (arr.length === 1)
-        resultMin.push(arr[0]);
+    if (arr.length === 1) resultMin.push(arr[0]);
     return [
         ...resultMin,
         ...resultMax.reverse()
@@ -105,12 +89,8 @@ console.log(treeInWidth(treeData));
 function getArrTree(tree) {
     let result = [];
     getData(tree);
-
     function getData(tree) {
-        if (tree.child)
-            tree.child.forEach(function (t) {
-                getData(t);
-            });
+        if (tree.child) tree.child.forEach(function (t) {getData(t);});
         result.push(tree.value)
     }
     return result;
@@ -132,15 +112,12 @@ function balanceString(str) {
     };
     const stack = [];
     for (let i = 0; i < str.length; i++) {
-        if (openBr[str[i]])
-            stack.push(str[i]);
+        if (openBr[str[i]]) stack.push(str[i]);
         else {
             let cb = closeBr[str[i]];
             if (cb) {
-                if (stack[stack.length - 1] === cb)
-                    stack.pop();
-                else
-                    return false;
+                if (stack[stack.length - 1] === cb) stack.pop();
+                else return false;
             }
         }
     }
@@ -154,24 +131,20 @@ function balanceString(str) {
 
 //Task 2 Бинарный поиск
 function binarySearch(findItem, arr) {
-    if (arr.length === 0)
-        return -1;
+    if (arr.length === 0) return -1;
     let index = 0;
     while (arr.length >= 1) {
         let mid = Math.floor(arr.length / 2);
         if (arr[mid] === findItem) {
             let result = mid + index;
             for (let i = mid + index; i >= 0; i--) {
-                if (arr[i] === findItem)
-                    result = i;
-                else
-                    break;
+                if (arr[i] === findItem) result = i;
+                else break;
             }
             return result;
         }
         else {
-            if (findItem < arr[mid])
-                arr = arr.slice(0, mid);
+            if (findItem < arr[mid]) arr = arr.slice(0, mid);
             else {
                 arr = arr.slice(mid + 1, arr.length);
                 index += mid + 1;
@@ -197,4 +170,3 @@ function sort(arr) {
 }
 console.log(sort(arr));
 
-*/
