@@ -59,7 +59,6 @@
             ...resultMax.reverse()
         ];
     }
-
     console.log(sheikerSort(arr));
 
 
@@ -73,12 +72,10 @@
                     toAdd = false;
                     break;
                 }
-            if (toAdd)
-                result.push(value)
+            if (toAdd) result.push(value)
         }
         return result;
     }
-
     console.log(getEasyNumbers(1000));
 
 
@@ -93,7 +90,6 @@
         }
         return result;
     }
-
     console.log(treeInWidth(treeData));
 
 
@@ -101,17 +97,12 @@
     function getArrTree(tree) {
         let result = [];
         getData(tree);
-
         function getData(tree) {
-            if (tree.child) tree.child.forEach(function (t) {
-                getData(t);
-            });
+            if (tree.child) tree.child.forEach(function (t) { getData(t);});
             result.push(tree.value)
         }
-
         return result;
     }
-
     console.log(getArrTree(treeData));
 
 
@@ -140,7 +131,6 @@
         }
         return stack.length === 0
     }
-
     ["({()})", "{(})", "[({])]"].forEach(function (el) {
         console.log(el);
         console.log(balanceString(el));
@@ -170,7 +160,6 @@
             }
         }
     }
-
     console.log(binarySearch(arr[Math.floor(Math.random() * arr.length)], arr));
 
 
@@ -187,7 +176,6 @@
         }
         return arr
     }
-
     console.log(sort(arr));
 </script>
 </body>
