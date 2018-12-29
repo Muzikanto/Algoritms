@@ -99,45 +99,16 @@
 
     // Task 11 Выбрать в массиве фрагмент с наибольшей суммой
     function getMaxPart(arr) {
-        let parts = [];
-        for (let i = 0, currentPart = 0; i < arr.length; i++) {
-            if (!parts[currentPart])
-                parts[currentPart] = {start: i, end: null, sum: arr[i]};
-            else if ((parts[currentPart].sum >= 0 && arr[i] >= 0) || (parts[currentPart].sum <= 0 && arr[i] <= 0))
-                parts[currentPart].sum += arr[i];
-            if ((parts[currentPart].sum >= 0 && arr[i + 1] < 0) || (parts[currentPart].sum <= 0 && arr[i + 1] > 0)) {
-                parts[currentPart].end = i;
-                currentPart++;
-            }
-        }
-        parts[parts.length - 1].end = arr.length - 1;
-
-
-        if (parts[0].sum <= 0)
-            parts = parts.slice(1, parts.length);
-        if (parts[parts.length - 1].sum <= 0)
-            parts = parts.slice(0, parts.length - 1);
-
-
-        let maxPart = [];
-        for (let i = 0, currentPart = 0; i + 1 < parts.length; i++) {
-            if (!maxPart[currentPart] && parts[i].sum > 0)
-                maxPart[currentPart] = parts[i];
-            else {
-                if (maxPart[currentPart].sum + parts[i].sum + parts[i + 1].sum >= 0) {
-
-                } else {
-                    currentPart++;
-                }
-            }
-        }
-
-        console.table(parts);
-        console.table(maxPart);
-        return parts;
+        return arr.reduce((acc, el, i) => {
+            arr.slice(i + 1).reduce((acc2, el2, i2) => {
+                acc2.sum += el2;
+                acc = acc2.sum > acc.sum ? {...acc2, ...{end : i2 + i + 1}} : acc;
+                return acc2;
+            }, {sum: el});
+            return {...{start: i}, ...acc};
+        }, {sum: 0});
     }
-
-    console.log('Max part', getMaxPart(generateArr(20, true, true)));
+    // console.log('Max part\n', getMaxPart(generateArr(20, true, true)));
 
 
     // Task 10 Вывести все перестановки чисел о 1 до N
