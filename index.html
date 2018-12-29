@@ -7,17 +7,19 @@
 </head>
 <body>
 <script>
+    // https://gist.github.com/dima117/960d1250f655a076305e66b0c8f1cda0
+
     //Массив
-    function generateArr(count = 20, show = false) {
+    function generateArr(count = 20, show = false, otr = false) {
         let arrData = [];
         for (let i = 0; i < count; i++) {
-            arrData[i] = Math.floor(Math.random() * 100);
+            const value = Math.floor(Math.random() * 100);
+            arrData[i] = otr ? (Math.random() > 0.5 && value !== 0 ? -value : value ) : value;
         }
         if (show)
             console.log('Generate array', arrData);
         return arrData;
     }
-
 
     //Дерево
     let treeData = {
@@ -45,108 +47,106 @@
     // console.log('Generate tree', treeData);
 
 
-    // Task 7 Сортировка шейкером
-    function sheikerSort(arr) {
-        let resultMin = [];
-        let resultMax = [];
-        while (arr.length > 1) {
-            let min = 0, max = 0;
-            for (let i = 1; i < arr.length; i++) {
-                if (arr[min] > arr[i]) min = i;
-                if (arr[max] < arr[i]) max = i;
-            }
-            resultMin.push(arr[min]);
-            resultMax.push(arr[max]);
-            arr.splice(Math.max(min, max), 1);
-            arr.splice(Math.min(min, max), 1);
-        }
-        if (arr.length === 1) resultMin.push(arr[0]);
-        return [
-            ...resultMin,
-            ...resultMax.reverse()
-        ];
-    }
-    //console.log(sheikerSort(arrData));
+    // Task 14 Расставить 8 ферзей на шахматной доске, чтобы не били друг друга
 
 
-    // Task 6 Получить массив простых чисел до указанного числа
-    function getEasyNumbers(number) {
-        const result = [2];
-        for (let value = 3; value < number; value += 2) {
-            let toAdd = true;
-            for (let j = 0; j < result.length && result[j] <= Math.sqrt(value); j++)
-                if (value % result[j] === 0) {
-                    toAdd = false;
-                    break;
+    // Task 13 Сортировка слиянием
+
+
+    // Task 12 Вывод чисел от 1 до N^2 по спирали
+    function spiralString(value) {
+        let arr = [];
+        for (let i = 0; i < value; i++)
+            arr[i] = [];
+        let dx = 1, dy = 0;
+        let x = 0, y = 0;
+        let i = 1;
+        while (i <= value * value) {
+            arr[y][x] = i.toString();
+            if (dx === 1) {
+                if (x + 1 >= value || arr[y][x + 1]) {
+                    dx = 0;
+                    dy = 1;
                 }
-            if (toAdd) result.push(value)
-        }
-        return result;
-    }
-    // console.log(getEasyNumbers(1000));
-
-
-    //Task 5 Обход дерева в ширину
-    function treeInWidth(tree) {
-        let result = [];
-        let queue = [tree];
-        for (let i = 0; i < queue.length; i++) {
-            let item = queue[i];
-            result.push(item.value);
-            if (item.child) queue.push.apply(queue, item.child)
-        }
-        return result;
-    }
-    // console.log(treeInWidth(treeData));
-
-
-    //    function getArrTree(tree) {
-    //        let result = [];
-    //        if (tree.child)
-    //            tree.child.forEach(function (t) {
-    //                result = [...result, ...getArrTree(t)];
-    //            });
-    //        result.push(tree.value);
-    //        return result;
-    //    }
-    function getArrTree(tree) {
-        return [...tree.child ? tree.child.reduce((acc, el) => [...acc, ...getArrTree(el)], []) : [], ...[tree.value]];
-    }
-
-    // console.log(getArrTree(treeData));
-
-    //Task 3 Балансировка строки по скобкам
-    function balanceString(str) {
-        const closeBr = {
-            '}': '{',
-            ']': '[',
-            ')': '('
-        };
-        const openBr = {
-            '{': '}',
-            '[': ']',
-            '(': ')'
-        };
-        const stack = [];
-        for (let i = 0; i < str.length; i++) {
-            if (openBr[str[i]]) stack.push(str[i]);
+            }
+            else if (dx === -1) {
+                if (x - 1 < 0 || arr[y][x - 1]) {
+                    dx = 0;
+                    dy = -1;
+                }
+            }
+            else if (dy === 1) {
+                if (y + 1 >= value || arr[y + 1][x]) {
+                    dx = -1;
+                    dy = 0;
+                }
+            }
             else {
-                let cb = closeBr[str[i]];
-                if (cb) {
-                    if (stack[stack.length - 1] === cb) stack.pop();
-                    else return false;
+                if (y - 1 < 0 || arr[y - 1][x]) {
+                    dx = 1;
+                    dy = 0;
+                }
+            }
+            x += dx;
+            y += dy;
+            i++;
+        }
+        return arr.reduce((acc, el) => `${acc}${el}\n`, '');
+    }
+
+    // console.log(spiralString(5));
+
+
+    // Task 11 Выбрать в массиве фрагмент с наибольшей суммой
+    function getMaxPart(arr) {
+        let parts = [];
+        for (let i = 0, currentPart = 0; i < arr.length; i++) {
+            if (!parts[currentPart])
+                parts[currentPart] = {start: i, end: null, sum: arr[i]};
+            else if ((parts[currentPart].sum >= 0 && arr[i] >= 0) || (parts[currentPart].sum <= 0 && arr[i] <= 0))
+                parts[currentPart].sum += arr[i];
+            if ((parts[currentPart].sum >= 0 && arr[i + 1] < 0) || (parts[currentPart].sum <= 0 && arr[i + 1] > 0)) {
+                parts[currentPart].end = i;
+                currentPart++;
+            }
+        }
+        parts[parts.length - 1].end = arr.length - 1;
+
+
+        if (parts[0].sum <= 0)
+            parts = parts.slice(1, parts.length);
+        if (parts[parts.length - 1].sum <= 0)
+            parts = parts.slice(0, parts.length - 1);
+
+
+        let maxPart = [];
+        for (let i = 0, currentPart = 0; i + 1 < parts.length; i++) {
+            if (!maxPart[currentPart] && parts[i].sum > 0)
+                maxPart[currentPart] = parts[i];
+            else {
+                if (maxPart[currentPart].sum + parts[i].sum + parts[i + 1].sum >= 0) {
+
+                } else {
+                    currentPart++;
                 }
             }
         }
-        return stack.length === 0
+
+        console.table(parts);
+        console.table(maxPart);
+        return parts;
     }
-    //    ["({()})", "{(})", "[({])]"].forEach(function (el) {
-    //        console.log(el);
-    //        console.log(balanceString(el));
-    //    });
+
+    console.log('Max part', getMaxPart(generateArr(20, true, true)));
 
 
-    //Task 2 Бинарный поиск
+    // Task 10 Вывести все перестановки чисел о 1 до N
+
+
+    // Task 9 Развернуть односвязный список
+
+
+    //Task 8 Бинарный поиск в отсортированном массиве
     function binarySearch(findItem, arr) {
         if (arr.length === 0) return -1;
         let index = 0;
@@ -176,7 +176,118 @@
     //    console.log('Position item', binarySearch(findItem, arrData));
 
 
-    //Task 1  Сортировка пузырьком
+    // Task 7 Найти все простые числа от 1 до N
+    function getEasyNumbers(number) {
+        const result = [2];
+        for (let value = 3; value < number; value += 2) {
+            let toAdd = true;
+            for (let j = 0; j < result.length && result[j] <= Math.sqrt(value); j++)
+                if (value % result[j] === 0) {
+                    toAdd = false;
+                    break;
+                }
+            if (toAdd) result.push(value)
+        }
+        return result;
+    }
+
+    // console.log(getEasyNumbers(1000));
+
+
+    //Task 6 Баланс скобок в строке ({[
+    function balanceString(str) {
+        const closeBr = {
+            '}': '{',
+            ']': '[',
+            ')': '('
+        };
+        const openBr = {
+            '{': '}',
+            '[': ']',
+            '(': ')'
+        };
+        const stack = [];
+        for (let i = 0; i < str.length; i++) {
+            if (openBr[str[i]]) stack.push(str[i]);
+            else {
+                let cb = closeBr[str[i]];
+                if (cb) {
+                    if (stack[stack.length - 1] === cb) stack.pop();
+                    else return false;
+                }
+            }
+        }
+        return stack.length === 0
+    }
+
+    //    ["({()})", "{(})", "[({])]"].forEach(function (el) {
+    //        console.log(el);
+    //        console.log(balanceString(el));
+    //    });
+
+
+    //Task 5 Обход дерева в ширину
+    function treeInWidth(tree) {
+        let result = [];
+        let queue = [tree];
+        for (let i = 0; i < queue.length; i++) {
+            let item = queue[i];
+            result.push(item.value);
+            if (item.child) queue.push.apply(queue, item.child)
+        }
+        return result;
+    }
+
+    // console.log(treeInWidth(treeData));
+
+
+    //Task 4 Обход дерева в глубину
+    function getArrTree(tree) {
+        return [...tree.child ? tree.child.reduce((acc, el) => [...acc, ...getArrTree(el)], []) : [], ...[tree.value]];
+    }
+
+    // console.log(getArrTree(treeData));
+
+
+    //Task 3 Сортировка вставками
+    function sortInsert(arr) {
+        for (let i = 1; i < arr.length; i++) {
+            if (arr[i] < arr[i - 1]) {
+                let current = i - 1;
+                while (current > 0 && arr[i] < arr[current - 1]) {
+                    current--;
+                }
+                let second = arr[i];
+                arr.splice(i, 1);
+                arr.splice(current, 0, second)
+            }
+        }
+        return arr
+    }
+
+    // console.log('Сортировка вставками', sortInsert(generateArr(20, true)));
+
+
+    //Task 2 Сортировка выбором
+    function sortSelect(arr) {
+        let minIndex = 1;
+        let currentIndex = 0;
+        for (let i = 0; i < arr.length; i++) {
+            for (let j = currentIndex + 1; j < arr.length; j++)
+                if (arr[j] < arr[minIndex])
+                    minIndex = j;
+            if (minIndex !== currentIndex)
+                [arr[minIndex], arr[currentIndex]] = [arr[currentIndex], arr[minIndex]];
+            currentIndex++;
+            minIndex = currentIndex;
+        }
+        return arr
+    }
+
+    // console.log('Сортировка выбором', sortSelect(generateArr(20, true)));
+
+
+    //Task 1 Сортировка пузырьком
     function sort(arr) {
         for (let i = 0; i < arr.length; i++) {
             for (let j = i + 1; j < arr.length; j++) {
@@ -187,7 +298,33 @@
         }
         return arr
     }
-    //     console.log('Сортировка пузырьком', sort(generateArr(20, true)));
+
+    // console.log('Сортировка пузырьком', sort(generateArr(20, true)));
+
+
+    // Task X Сортировка шейкер
+    function sheikerSort(arr) {
+        let resultMin = [];
+        let resultMax = [];
+        while (arr.length > 1) {
+            let min = 0, max = 0;
+            for (let i = 1; i < arr.length; i++) {
+                if (arr[min] > arr[i]) min = i;
+                if (arr[max] < arr[i]) max = i;
+            }
+            resultMin.push(arr[min]);
+            resultMax.push(arr[max]);
+            arr.splice(Math.max(min, max), 1);
+            arr.splice(Math.min(min, max), 1);
+        }
+        if (arr.length === 1) resultMin.push(arr[0]);
+        return [
+            ...resultMin,
+            ...resultMax.reverse()
+        ];
+    }
+
+    //console.log(sheikerSort(arrData));
 
 </script>
 </body>
