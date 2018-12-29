@@ -138,25 +138,30 @@
         const count = getCount(value);
         for (let i = 0; i < count; i++) arr.push([]);
 
-        for (let i = 0, j = 0; i < count; i++) {
-            const val = Math.floor(i / count * value) + 1;
-            arr[j++][0] = val;
+
+        for (let column = 0; column < value; column++) {
+            const delVal = getDelValue(column);
+            for (let i = 0, j = 0; j < count; i++) {
+                const val = Math.floor(i / delVal) % value + 1;
+                if (!existsValue(arr[j], val))
+                    arr[j++][column] = val;
+            }
         }
-//        for (let i = 0, j = 0; j < count; i++) {
-//            const val = (Math.floor(i / (count / value / (value - 1))) % value + 1);
-//            if (arr[j][0] !== val)
-//                arr[j++][1] = val;
-//        }
-//        for (let i = 0, j = 0; j < count; i++) {
-//            const val = (Math.floor(i / (count / value / (value - 1) / (value - 2))) % value + 1);
-//            if (arr[j][1] !== val && arr[j][0] !== val)
-//                arr[j++][2] = val;
-//        }
-//        for (let i = 0, j = 0; j < count; i++) {
-//            const val = (Math.floor(i / (count / value / (value - 1) / (value - 2) / (value - 3))) % value + 1);
-//            if (arr[j][2] !== val && arr[j][1] !== val && arr[j][0] !== val)
-//                arr[j++][3] = val;
-//        }
+
+        function existsValue(checkArr, checkVal) {
+            for (const val of checkArr)
+                if (val === checkVal)
+                    return true;
+            return false;
+        }
+
+        function getDelValue(delCount) {
+            let delVal = count;
+            for (let i = 0; i <= delCount; i++) {
+                delVal /= (value - i);
+            }
+            return delVal;
+        }
 
         function getCount(value) {
             let countValues = 1;
@@ -164,10 +169,11 @@
                 countValues *= i;
             return countValues;
         }
+
         return arr;
     }
 
-    console.table(replaceNumbers(4));
+    console.table(replaceNumbers(10));
 
     // Task 9 Развернуть односвязный список
     function reverseList(list) {
