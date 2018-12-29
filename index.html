@@ -46,6 +46,26 @@
     };
     // console.log('Generate tree', treeData);
 
+    // Односвязный список
+    function generateList(show) {
+        const list = {
+            value: 1,
+            next: {
+                value: 2,
+                next: {
+                    value: 3,
+                    next: {
+                        value: 4,
+                        next: null
+                    }
+                }
+            }
+        };
+        if (show)
+            console.log('List', list);
+        return list;
+    }
+
 
     // Task 14 Расставить 8 ферзей на шахматной доске, чтобы не били друг друга
 
@@ -102,20 +122,65 @@
         return arr.reduce((acc, el, i) => {
             arr.slice(i + 1).reduce((acc2, el2, i2) => {
                 acc2.sum += el2;
-                acc = acc2.sum > acc.sum ? {...acc2, ...{end : i2 + i + 1}} : acc;
+                acc = acc2.sum > acc.sum ? {...acc2, ...{end: i2 + i + 1}} : acc;
                 return acc2;
             }, {sum: el});
             return {...{start: i}, ...acc};
         }, {sum: 0});
     }
+
     // console.log('Max part\n', getMaxPart(generateArr(20, true, true)));
 
 
     // Task 10 Вывести все перестановки чисел о 1 до N
+    function replaceNumbers(value) {
+        let arr = [];
+        const count = getCount(value);
+        for (let i = 0; i < count; i++) arr.push([]);
 
+        for (let i = 0, j = 0; i < count; i++) {
+            const val = Math.floor(i / count * value) + 1;
+            arr[j++][0] = val;
+        }
+//        for (let i = 0, j = 0; j < count; i++) {
+//            const val = (Math.floor(i / (count / value / (value - 1))) % value + 1);
+//            if (arr[j][0] !== val)
+//                arr[j++][1] = val;
+//        }
+//        for (let i = 0, j = 0; j < count; i++) {
+//            const val = (Math.floor(i / (count / value / (value - 1) / (value - 2))) % value + 1);
+//            if (arr[j][1] !== val && arr[j][0] !== val)
+//                arr[j++][2] = val;
+//        }
+//        for (let i = 0, j = 0; j < count; i++) {
+//            const val = (Math.floor(i / (count / value / (value - 1) / (value - 2) / (value - 3))) % value + 1);
+//            if (arr[j][2] !== val && arr[j][1] !== val && arr[j][0] !== val)
+//                arr[j++][3] = val;
+//        }
+
+        function getCount(value) {
+            let countValues = 1;
+            for (let i = 1; i <= value; i++)
+                countValues *= i;
+            return countValues;
+        }
+        return arr;
+    }
+
+    console.table(replaceNumbers(4));
 
     // Task 9 Развернуть односвязный список
+    function reverseList(list) {
+        let newList = {};
+        let current = list;
+        while (current) {
+            newList = {next: newList, value: current.value};
+            current = current.next;
+        }
+        return newList
+    }
 
+    // console.log(reverseList(generateList(true)));
 
     //Task 8 Бинарный поиск в отсортированном массиве
     function binarySearch(findItem, arr) {
