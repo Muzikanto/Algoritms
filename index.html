@@ -79,12 +79,11 @@
         }
 
         fields[0] = mapStart;
-        let count = 0;
         while (fields.length <= 8) {
             let current = fields.length - 1;
             const currentField = fields[current];
             const currentQueen = queens[current];
-            const newField = checkPlaceFerz(currentQueen, currentField);
+            const newField = getField(currentQueen, currentField);
             if (newField)
                 fields.push(newField);
             else {
@@ -100,16 +99,14 @@
                 } else
                     queens[current].x++;
             }
-            if (++count > 2000)
-                break;
         }
 
-        function checkPlaceFerz(queen, field) {
-            if (field[queen.y][queen.x] != "")
+        function getField(queen, field) {
+            if (field[queen.y][queen.x] != '')
                 return null;
             for (let y = queen.y; y < 8; y++) {
                 for (let x = queen.x; x < 8; x++) {
-                    const secondField = getField(field, {x, y});
+                    const secondField = checkPlaceFerz(field, {x, y});
                     if (secondField)
                         return secondField;
                 }
@@ -117,7 +114,7 @@
             return null;
         }
 
-        function getField(testMap, {x, y}) {
+        function checkPlaceFerz(testMap, {x, y}) {
             const secondMap = [];
             for (const arr of testMap) {
                 secondMap.push([...arr]);
