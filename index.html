@@ -68,9 +68,101 @@
 
 
     // Task 14 Расставить 8 ферзей на шахматной доске, чтобы не били друг друга
+    function get8FerziesMap() {
+        let mapStart = [], queens = [], fields = [];
+        for (let y = 0; y < 8; y++) {
+            mapStart[y] = [];
+            queens[y] = {x: 0, y: 0};
+            for (let x = 0; x < 8; x++) {
+                mapStart[y][x] = '';
+            }
+        }
+
+        fields[0] = mapStart;
+        let count = 0;
+        while (fields.length <= 8) {
+            let current = fields.length - 1;
+            const currentField = fields[current];
+            const currentQueen = queens[current];
+            const newField = checkPlaceFerz(currentQueen, currentField);
+            if (newField)
+                fields.push(newField);
+            else {
+                if (fields.length > 1)
+                    fields.pop();
+                for (let i = current; i < 8; i++) {
+                    queens[i] = {x: 0, y: 0};
+                }
+                current = fields.length - 1;
+                if (queens[current].x + 1 > 7) {
+                    queens[current].x = 0;
+                    queens[current].y++;
+                } else
+                    queens[current].x++;
+            }
+            if (++count > 2000)
+                break;
+        }
+
+        function checkPlaceFerz(queen, field) {
+            if (field[queen.y][queen.x] != "")
+                return null;
+            for (let y = queen.y; y < 8; y++) {
+                for (let x = queen.x; x < 8; x++) {
+                    const secondField = getField(field, {x, y});
+                    if (secondField)
+                        return secondField;
+                }
+            }
+            return null;
+        }
+
+        function getField(testMap, {x, y}) {
+            const secondMap = [];
+            for (const arr of testMap) {
+                secondMap.push([...arr]);
+            }
+            const vectors = [[0, -1], [-1, 0], [1, 0], [0, 1], [-1, -1], [1, 1], [1, -1], [-1, 1]];
+            for (const vector of vectors) {
+                let testX = x, testY = y;
+                while (testX >= 0 && testY >= 0 && testX < 8 && testY < 8) {
+                    if (secondMap[testY][testX] === 1)
+                        return null;
+                    secondMap[testY][testX] = 0;
+                    testY += vector[0];
+                    testX += vector[1];
+                }
+            }
+            secondMap[y][x] = 1;
+            return secondMap;
+        }
+
+        return fields[fields.length - 1];
+    }
+
+    console.table(get8FerziesMap());
 
 
     // Task 13 Сортировка слиянием
+    function joinSort(arr) {
+        let one = arr.slice(0, Math.floor(arr.length / 2));
+        if (one.length > 1)
+            one = joinSort(one);
+        let two = arr.slice(Math.floor(arr.length / 2));
+        if (two.length > 1)
+            two = joinSort(two);
+
+        const newArr = [];
+        for (let i1 = 0, i2 = 0; one[i1] !== undefined || two[i2] !== undefined;) {
+            if (one[i1] !== undefined && (two[i2] === undefined || one[i1] <= two[i2]))
+                newArr.push(one[i1++]);
+            else if (two[i2] !== undefined)
+                newArr.push(two[i2++]);
+        }
+        return newArr;
+    }
+
+    // console.log('Сортировка слиянием', joinSort(generateArr(20, true, true)));
 
 
     // Task 12 Вывод чисел от 1 до N^2 по спирали
@@ -138,7 +230,6 @@
         const count = getCount(value);
         for (let i = 0; i < count; i++) arr.push([]);
 
-
         for (let column = 0; column < value; column++) {
             const delVal = getDelValue(column);
             for (let i = 0, j = 0; j < count; i++) {
@@ -173,7 +264,8 @@
         return arr;
     }
 
-    console.table(replaceNumbers(10));
+    //console.log(replaceNumbers(10));
+
 
     // Task 9 Развернуть односвязный список
     function reverseList(list) {
@@ -187,6 +279,7 @@
     }
 
     // console.log(reverseList(generateList(true)));
+
 
     //Task 8 Бинарный поиск в отсортированном массиве
     function binarySearch(findItem, arr) {
