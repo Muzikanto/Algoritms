@@ -15,8 +15,11 @@ import {sheikerSort} from "./sheikerSort.js";
 import {spiralString} from "./spiralString.js";
 import {treeInWidth} from "./treeInWidth.js";
 import {treeInDeep} from "./treeInDeep.js";
+import {horseToCell} from "./horseToCell.js";
 
 
+
+// console.table(horseToCell({start: {x: 0, y: 0}, target: {x: 6, y: 5}}));
 // console.table(get8FerziesMap());
 // console.log(generateScopes(4));
 // console.log(numberCombinations(4));
