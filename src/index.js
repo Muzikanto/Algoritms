@@ -16,26 +16,27 @@ import {spiralString} from "./spiralString.js";
 import {treeInWidth} from "./treeInWidth.js";
 import {treeInDeep} from "./treeInDeep.js";
 
+
+// console.table(get8FerziesMap());
+// console.log(generateScopes(4));
+// console.log(numberCombinations(4));
+// console.log(getMaxPartSum(generateArr({count: 30, show: true, otr: true})));
+// console.log(joinSort(generateArr({count: 30, show: true, otr: true})));
+// console.log(spiralString(5));
+// console.log(getEasyNumbers(1000));
 // console.log(isAnagram('1234', '3412'), isAnagram('1234', '1243'));
 // console.log(balanceScope('{()[{}]}'), balanceScope('{(){[}]}'));
 // const arr = bubbleSort(generateArr({count: 30, show: true, otr: true}));
 // const findVal = arr[Math.floor(Math.random() * arr.length)];
 // console.log('Find Value', findVal);
 // console.log(binarySearch(arr, findVal));
-// console.log(bubbleSort(generateArr({count: 30, show: true, otr: true})));
-// console.log(getEasyNumbers(1000));
-// console.table(get8FerziesMap());
-// console.log(generateScopes(4));
-// console.log(insertSort(generateArr({count: 30, show: true, otr: true})));
-// console.log(joinSort(generateArr({count: 30, show: true, otr: true})));
-// console.log(getMaxPartSum(generateArr({count: 30, show: true, otr: true})));
-// console.log(numberCombinations(4));
-// console.log(reverseQueue(generateList({show: true})));
-// console.log(selectSort(generateArr({count: 30, show: true, otr: true})));
-// console.log(sheikerSort(generateArr({count: 30, show: true, otr: true})));
-// console.log(spiralString(5));
 // console.log(treeInWidth(generateTree({show: true})));
 // console.log(treeInDeep(generateTree({show: true})));
+// console.log(insertSort(generateArr({count: 30, show: true, otr: true})));
+// console.log(selectSort(generateArr({count: 30, show: true, otr: true})));
+// console.log(sheikerSort(generateArr({count: 30, show: true, otr: true})));
+// console.log(reverseQueue(generateList({show: true})));
+// console.log(bubbleSort(generateArr({count: 30, show: true, otr: true})));
 
 
 // Массив чисел
