@@ -18,7 +18,6 @@ import {treeInDeep} from "./treeInDeep.js";
 import {horseToCell} from "./horseToCell.js";
 
 
-
 // console.table(horseToCell({start: {x: 0, y: 0}, target: {x: 6, y: 5}}));
 // console.table(get8FerziesMap());
 // console.log(generateScopes(4));
@@ -33,13 +32,14 @@ import {horseToCell} from "./horseToCell.js";
 // const findVal = arr[Math.floor(Math.random() * arr.length)];
 // console.log('Find Value', findVal);
 // console.log(binarySearch(arr, findVal));
-// console.log(treeInWidth(generateTree({show: true})));
-// console.log(treeInDeep(generateTree({show: true})));
+// console.log(treeInWidth(generateBinaryTree([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], {show: true})));
+// console.log(treeInDeep(generateBinaryTree([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], {show: true})));
 // console.log(insertSort(generateArr({count: 30, show: true, otr: true})));
 // console.log(selectSort(generateArr({count: 30, show: true, otr: true})));
 // console.log(sheikerSort(generateArr({count: 30, show: true, otr: true})));
 // console.log(reverseQueue(generateList({show: true})));
 // console.log(bubbleSort(generateArr({count: 30, show: true, otr: true})));
+
 
 
 // Массив чисел
@@ -55,32 +55,21 @@ function generateArr({count = 20, show = false, otr = false}) {
 }
 
 // Дерево
-function generateTree({show}) {
-    const obj = {
-        value: 5,
-        child: [
-            {
-                value: 1,
-                child: [{value: 2}]
-            },
-            {
-                value: 17,
-                child: [
-                    {
-                        value: 13,
-                        child: [{value: 14}]
-                    },
-                    {
-                        value: 15,
-                        child: [{value: 16, child: [{value: 17}]}]
-                    }
-                ]
-            }
-        ]
-    };
-    if (show)
-        console.log('Test tree', obj);
-    return obj;
+function generateBinaryTree(arr, {show = false}) {
+    const tree = createTree(arr);
+    if(show)
+        console.log(tree);
+    return tree;
+    function createTree(arr) {
+        const m = Math.floor(arr.length / 2);
+        if (arr.length <= 1) return {value: arr[0]};
+        const child = [createTree(arr.slice(0, m))];
+        if(arr.length > 2) child.push(createTree(arr.slice(m + 1)));
+        return {
+            value: arr[m],
+            child
+        };
+    }
 }
 
 // Односвязный список
