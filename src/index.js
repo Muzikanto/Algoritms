@@ -17,6 +17,7 @@ import {treeInWidth} from "./treeInWidth.js";
 import {treeInDeep} from "./treeInDeep.js";
 import {horseToCell} from "./horseToCell.js";
 import {hashSort} from "./hashSort.js";
+import {RedBlackTreeDeep} from "./rbTreeDeep.js";
 
 
 // console.table(horseToCell({start: {x: 0, y: 0}, target: {x: 6, y: 5}}));
@@ -40,15 +41,19 @@ import {hashSort} from "./hashSort.js";
 // console.log(sheikerSort(generateArr({count: 30, show: true, otr: true})));
 // console.log(reverseQueue(generateList({show: true})));
 // console.log(bubbleSort(generateArr({count: 30, show: true, otr: true})));
+console.log(RedBlackTreeDeep(toRedBlackTree(mergeSort(generateArr({count: 30, show: false, otr: true})))));
 
-//const arr = generateArr({count: 1000000, max: 100, show: false, otr: true});
+// const arr = generateArr({count: 1000000, max: 100, show: false, otr: true});
 // для 10 000, для 100 000, для 1 000 000
 // checkTime(bubbleSort, arr);  // 95 8518 слишком долго
 // checkTime(sheikerSort, arr); // 78 7313 слишком долго
 // checkTime(insertSort, arr);  // 53 5817 слишком долго
 // checkTime(selectSort, arr);  // 70 6500 слишком долго
 // checkTime(mergeSort, arr);   // 13 58  430
-// checkTime(hashSort, arr, 4); // 2  22  85
+// checkTime(hashSort, arr);    // 2  22  85  840
+
+
+
 
 
 // Массив чисел
@@ -63,27 +68,39 @@ function generateArr({count = 20, max = 100, show = false, otr = false}) {
     return arrData;
 }
 
-// Дерево
-function generateBinaryTree(arr, {show = false}) {
+// Дерево из массива
+function generateBinaryTree(arr, {show = false} = {}) {
     const tree = createTree(arr);
     if (show)
         console.log(tree);
     return tree;
 
-    function createTree(arr) {
-        const m = Math.floor(arr.length / 2);
-        if (arr.length <= 1) return {value: arr[0]};
-        const child = [createTree(arr.slice(0, m))];
-        if (arr.length > 2) child.push(createTree(arr.slice(m + 1)));
-        return {
-            value: arr[m],
-            child
-        };
+    function createTree(arr, s = 0, e = arr.length) {
+        const m = Math.floor((s + e) / 2);
+        if (e - 1 === s || s === e)
+            return s !== e ? {value: arr[m], child: null} : null;
+        const child = [];
+        const left = createTree(arr, s, m);
+        const right = createTree(arr, m + 1, e);
+        if (left)
+            child.push(left);
+        if (right)
+            child.push(right);
+        return {value: arr[m], child};
     }
 }
 
+// rb Дерево из массива
+function toRedBlackTree(arr, s = 0, e = arr.length, c = 'black') {
+    const m = Math.floor((s + e) / 2);
+    const color = c === 'red' ? 'black' : 'red';
+    if (e - 1 === s || s === e)
+        return s !== e ? {value: arr[m], left: null, right: null, color} : null;
+    return {value: arr[m], left: toRedBlackTree(arr, s, m, color), right: toRedBlackTree(arr, m + 1, e, color), color: c};
+}
+
 // Односвязный список
-function generateList({show = false}) {
+function generateList({show = false} = {}) {
     const list = {
         value: 1,
         next: {
@@ -102,7 +119,7 @@ function generateList({show = false}) {
     return list;
 }
 
-//
+// Скорость работы
 function checkTime(func, ...arg) {
     console.time(func.name);
     const result = func(...arg);
@@ -110,7 +127,7 @@ function checkTime(func, ...arg) {
     return result;
 }
 
-//
+// Сравнение массивов
 function checkEquals(arr, arr2) {
     if (arr.length !== arr2.length)
         return false;
@@ -120,4 +137,49 @@ function checkEquals(arr, arr2) {
         }
     }
     return true;
+}
+
+// Тестовое rb Дерево
+function getTestRedBlackTree() {
+    return {
+        value: 13,
+        left: {
+            value: 8,
+            left:
+                {
+                    value: 1,
+                    left: null,
+                    right: {
+                        value: 6,
+                        left: null,
+                        right: null
+                    }
+                },
+            right:
+                {
+                    value: 11,
+                    left: null,
+                    right: null
+                }
+        }, right: {
+            value: 17,
+            left: {
+                value: 15,
+                left: null
+            },
+            right: {
+                value: 25,
+                left: {
+                    value: 22,
+                    left: null,
+                    right: null
+                },
+                right: {
+                    value: 27,
+                    left: null,
+                    right: null
+                }
+            }
+        }
+    }
 }
