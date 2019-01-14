@@ -1,23 +1,24 @@
-import {isAnagram} from "./anagram.js";
-import {balanceScope} from "./balanceScope.js";
-import {binarySearch} from "./binarySearch.js";
-import {bubbleSort} from "./bubbleSort.js";
-import {getEasyNumbers} from "./easyNumbers.js";
-import {get8FerziesMap} from "./ferzies.js";
-import {generateScopes} from "./generateScopes.js";
-import {insertSort} from "./insertSort.js";
-import {mergeSort} from "./mergeSort.js";
-import {getMaxPartSum} from "./maxPartSum.js";
-import {numberCombinations} from "./numberCombinations.js";
-import {reverseQueue} from "./reverseQueque.js";
-import {selectSort} from "./selectSort.js";
-import {sheikerSort} from "./sheikerSort.js";
-import {spiralString} from "./spiralString.js";
-import {treeInWidth} from "./treeInWidth.js";
-import {treeInDeep} from "./treeInDeep.js";
-import {horseToCell} from "./horseToCell.js";
-import {hashSort} from "./hashSort.js";
-import {RedBlackTreeDeep} from "./rbTreeDeep.js";
+import {isAnagram} from "./src/anagram.js";
+import {balanceScope} from "./src/balanceScope.js";
+import {binarySearch} from "./src/binarySearch.js";
+import {bubbleSort} from "./src/bubbleSort.js";
+import {getEasyNumbers} from "./src/easyNumbers.js";
+import {get8FerziesMap} from "./src/ferzies.js";
+import {generateScopes} from "./src/generateScopes.js";
+import {insertSort} from "./src/insertSort.js";
+import {mergeSort} from "./src/mergeSort.js";
+import {getMaxPartSum} from "./src/maxPartSum.js";
+import {numberCombinations} from "./src/numberCombinations.js";
+import {reverseQueue} from "./src/reverseQueque.js";
+import {selectSort} from "./src/selectSort.js";
+import {sheikerSort} from "./src/sheikerSort.js";
+import {spiralString} from "./src/spiralString.js";
+import {treeInWidth} from "./src/treeInWidth.js";
+import {treeInDeep} from "./src/treeInDeep.js";
+import {horseToCell} from "./src/horseToCell.js";
+import {hashSort} from "./src/hashSort.js";
+import {RedBlackTreeDeep} from "./src/rbTreeDeep.js";
+import {ProxyTest} from "./proxy.js";
 
 
 // console.table(horseToCell({start: {x: 0, y: 0}, target: {x: 6, y: 5}}));
@@ -41,7 +42,7 @@ import {RedBlackTreeDeep} from "./rbTreeDeep.js";
 // console.log(sheikerSort(generateArr({count: 30, show: true, otr: true})));
 // console.log(reverseQueue(generateList({show: true})));
 // console.log(bubbleSort(generateArr({count: 30, show: true, otr: true})));
-console.log(RedBlackTreeDeep(toRedBlackTree(mergeSort(generateArr({count: 30, show: false, otr: true})))));
+// console.log(RedBlackTreeDeep(toRedBlackTree(mergeSort(generateArr({count: 30, show: false, otr: true})))));
 
 // const arr = generateArr({count: 1000000, max: 100, show: false, otr: true});
 // для 10 000, для 100 000, для 1 000 000
@@ -54,6 +55,17 @@ console.log(RedBlackTreeDeep(toRedBlackTree(mergeSort(generateArr({count: 30, sh
 
 
 
+const test = {
+    show(){
+        console.log(this.one)
+    }
+};
+
+const obj = {
+    one: 'one'
+};
+
+test.show.apply(obj);
 
 
 // Массив чисел
@@ -96,7 +108,12 @@ function toRedBlackTree(arr, s = 0, e = arr.length, c = 'black') {
     const color = c === 'red' ? 'black' : 'red';
     if (e - 1 === s || s === e)
         return s !== e ? {value: arr[m], left: null, right: null, color} : null;
-    return {value: arr[m], left: toRedBlackTree(arr, s, m, color), right: toRedBlackTree(arr, m + 1, e, color), color: c};
+    return {
+        value: arr[m],
+        left: toRedBlackTree(arr, s, m, color),
+        right: toRedBlackTree(arr, m + 1, e, color),
+        color: c
+    };
 }
 
 // Односвязный список
