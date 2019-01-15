@@ -19,6 +19,9 @@ import {horseToCell} from "./src/horseToCell.js";
 import {hashSort} from "./src/hashSort.js";
 import {RedBlackTreeDeep} from "./src/rbTreeDeep.js";
 import {ProxyTest} from "./proxy.js";
+import {arrayToBuckets} from "./src/arrayToBuckets.js";
+import {joinArrays} from "./src/joinArrays.js";
+
 
 
 // console.table(horseToCell({start: {x: 0, y: 0}, target: {x: 6, y: 5}}));
@@ -53,19 +56,6 @@ import {ProxyTest} from "./proxy.js";
 // checkTime(mergeSort, arr);   // 13 58  430
 // checkTime(hashSort, arr);    // 2  22  85  840
 
-
-
-const test = {
-    show(){
-        console.log(this.one)
-    }
-};
-
-const obj = {
-    one: 'one'
-};
-
-test.show.apply(obj);
 
 
 // Массив чисел
