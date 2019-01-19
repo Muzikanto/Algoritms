@@ -44,3 +44,36 @@ export const ProxyTest = () => {
     console.log(proxy['<58.0'].Firefox.mobile);
 
 };
+
+()=> {
+    const test = {
+        one: 1,
+        sum(a, b) {
+            return a + b;
+        }
+    };
+
+    const handler = {
+        get(target, propKey, receiver) {
+            if (typeof target[propKey] === 'function') {
+                return new Proxy(target[propKey], {
+                    apply(applyTarget, thisArg, args) {
+                        return Reflect.apply(applyTarget, thisArg, args);
+                    }
+                });
+            }
+
+            if (target.hasOwnProperty(propKey)) {
+
+            }
+
+            return target[propKey];
+        }
+    };
+
+    const proxy = new Proxy(test, handler);
+
+
+    console.log(proxy.sum(1, 2));
+    console.log(proxy.one);
+}

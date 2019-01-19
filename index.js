@@ -21,41 +21,36 @@ import {RedBlackTreeDeep} from "./src/rbTreeDeep.js";
 import {ProxyTest} from "./proxy.js";
 import {arrayToBuckets} from "./src/arrayToBuckets.js";
 import {joinArrays} from "./src/joinArrays.js";
+import {toParts} from "./src/toParts.js";
 
 
+const timers = {};
 
-// console.table(horseToCell({start: {x: 0, y: 0}, target: {x: 6, y: 5}}));
-// console.table(get8FerziesMap());
-// console.log(generateScopes(4));
-// console.log(numberCombinations(4));
-// console.log(getMaxPartSum(generateArr({count: 30, show: true, otr: true})));
-// console.log(mergeSort(generateArr({count: 30, show: true, otr: true})));
-// console.log(spiralString(5));
-// console.log(getEasyNumbers(1000));
-// console.log(isAnagram('1234', '3412'), isAnagram('1234', '1243'));
-// console.log(balanceScope('{()[{}]}'), balanceScope('{(){[}]}'));
-// const arr = bubbleSort(generateArr({count: 30, show: true, otr: true}));
-// const findVal = arr[Math.floor(Math.random() * arr.length)];
-// console.log('Find Value', findVal);
-// console.log(binarySearch(arr, findVal));
-// console.log(treeInWidth(generateBinaryTree([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], {show: true})));
-// console.log(treeInDeep(generateBinaryTree([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], {show: true})));
-// console.log(insertSort(generateArr({count: 30, show: true, otr: true})));
-// console.log(selectSort(generateArr({count: 30, show: true, otr: true})));
-// console.log(sheikerSort(generateArr({count: 30, show: true, otr: true})));
-// console.log(reverseQueue(generateList({show: true})));
-// console.log(bubbleSort(generateArr({count: 30, show: true, otr: true})));
-// console.log(RedBlackTreeDeep(toRedBlackTree(mergeSort(generateArr({count: 30, show: false, otr: true})))));
+const testArr = generateArr({count: 10000, otr: true});
+console.table(timing(horseToCell)({start: {x: 0, y: 0}, target: {x: 6, y: 5}}));
+console.table(timing(get8FerziesMap)());
+console.log(timing(generateScopes)(4));
+console.log(timing(numberCombinations(4)));
+console.log(timing(getMaxPartSum([...testArr])));
+console.log(timing(spiralString)(5));
+console.log(timing(getEasyNumbers)(1000));
+console.log(timing(isAnagram)('1234', '3412'), isAnagram('1234', '1243'));
+console.log(timing(balanceScope)('{()[{}]}'), balanceScope('{(){[}]}'));
+console.log(timing(binarySearch)(mergeSort([...testArr]), testArr[Math.floor(Math.random() * testArr.length)]));
+console.log(timing(hashSort)([...testArr]));
+console.log(timing(mergeSort)([...testArr]));
+console.log(timing(insertSort)([...testArr]));
+console.log(timing(selectSort)([...testArr]));
+console.log(timing(sheikerSort)([...testArr]));
+console.log(timing(bubbleSort)([...testArr]));
+console.log(timing(arrayToBuckets)([...testArr]));
+console.log(timing(toParts)([1, 4, 5, 2, 3, 9, 8, 11, 0]));
+console.log(timing(reverseQueue)(generateList({show: true})));
+console.log(timing(treeInWidth)(generateBinaryTree([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], {})));
+console.log(timing(treeInDeep)(generateBinaryTree([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], {})));
+console.log(timing(RedBlackTreeDeep)(toRedBlackTree(mergeSort(generateArr({count: 30, otr: true})))));
 
-// const arr = generateArr({count: 1000000, max: 100, show: false, otr: true});
-// для 10 000, для 100 000, для 1 000 000
-// checkTime(bubbleSort, arr);  // 95 8518 слишком долго
-// checkTime(sheikerSort, arr); // 78 7313 слишком долго
-// checkTime(insertSort, arr);  // 53 5817 слишком долго
-// checkTime(selectSort, arr);  // 70 6500 слишком долго
-// checkTime(mergeSort, arr);   // 13 58  430
-// checkTime(hashSort, arr);    // 2  22  85  840
-
+console.log(timers);
 
 
 // Массив чисел
@@ -126,14 +121,6 @@ function generateList({show = false} = {}) {
     return list;
 }
 
-// Скорость работы
-function checkTime(func, ...arg) {
-    console.time(func.name);
-    const result = func(...arg);
-    console.timeEnd(func.name);
-    return result;
-}
-
 // Сравнение массивов
 function checkEquals(arr, arr2) {
     if (arr.length !== arr2.length)
@@ -190,3 +177,14 @@ function getTestRedBlackTree() {
         }
     }
 }
+
+function timing(f) {
+    return function () {
+        const start = performance.now();
+        const result = f.apply(this, arguments);
+        if (!timers[f.name]) timers[f.name] = 0;
+        timers[f.name] += performance.now() - start;
+        return result;
+    }
+}
+
