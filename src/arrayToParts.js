@@ -1,5 +1,4 @@
 export function toParts(arr) {
-    console.log(arr)
     arr.sort((a,b)=>a-b);
     const result = [];
     for (const v of arr) {

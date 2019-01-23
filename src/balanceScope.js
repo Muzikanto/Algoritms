@@ -1,25 +1,22 @@
 // Баланс скобок в строке ({[
 export function balanceScope(str) {
-    const closeBr = {
-        '}': '{',
-        ']': '[',
-        ')': '('
-    };
     const openBr = {
-        '{': '}',
+        '(': ')',
         '[': ']',
-        '(': ')'
+        '{': '}'
+    };
+    const closeBr = {
+        ')': '(',
+        ']': '[',
+        '}': '{'
     };
     const stack = [];
-    for (let i = 0; i < str.length; i++) {
-        if (openBr[str[i]]) stack.push(str[i]);
+    for (const v of str) {
+        if (v in openBr) stack.push(v);
         else {
-            let cb = closeBr[str[i]];
-            if (cb) {
-                if (stack[stack.length - 1] === cb) stack.pop();
-                else return false;
-            }
+            if (closeBr[v] === stack[stack.length - 1]) stack.pop();
+            else return false;
         }
     }
-    return stack.length === 0
+    return stack.length === 0;
 }

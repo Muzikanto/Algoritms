@@ -1,11 +1,10 @@
 // Обход дерева в ширину
 export function treeInWidth(tree) {
-    let result = [];
-    let queue = [tree];
-    for (let i = 0; i < queue.length; i++) {
-        let item = queue[i];
-        result.push(item.value);
-        if (item.child) queue.push.apply(queue, item.child)
+    const result = [];
+    const stack = [tree];
+    for (let i = 0; i < stack.length; i++) {
+        result.push(stack[i].value);
+        stack.push.apply(stack, stack[i].child);
     }
     return result;
 }

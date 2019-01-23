@@ -17,44 +17,45 @@ import {treeInWidth} from "./src/treeInWidth.js";
 import {treeInDeep} from "./src/treeInDeep.js";
 import {horseToCell} from "./src/horseToCell.js";
 import {hashSort} from "./src/hashSort.js";
-import {RedBlackTreeDeep} from "./src/rbTreeDeep.js";
-import {ProxyTest} from "./proxy.js";
 import {arrayToBuckets} from "./src/arrayToBuckets.js";
 import {joinArrays} from "./src/joinArrays.js";
-import {toParts} from "./src/toParts.js";
+import {toParts} from "./src/arrayToParts.js";
+import {testObject} from "./test/object.js";
+import {ProxyTest} from "./test/proxy.js";
 
 
 const timers = {};
 
-const testArr = generateArr({count: 10000, otr: true});
-console.table(timing(horseToCell)({start: {x: 0, y: 0}, target: {x: 6, y: 5}}));
-console.table(timing(get8FerziesMap)());
-console.log(timing(generateScopes)(4));
-console.log(timing(numberCombinations(4)));
-console.log(timing(getMaxPartSum([...testArr])));
-console.log(timing(spiralString)(5));
-console.log(timing(getEasyNumbers)(1000));
-console.log(timing(isAnagram)('1234', '3412'), isAnagram('1234', '1243'));
-console.log(timing(balanceScope)('{()[{}]}'), balanceScope('{(){[}]}'));
-console.log(timing(binarySearch)(mergeSort([...testArr]), testArr[Math.floor(Math.random() * testArr.length)]));
-console.log(timing(hashSort)([...testArr]));
-console.log(timing(mergeSort)([...testArr]));
-console.log(timing(insertSort)([...testArr]));
-console.log(timing(selectSort)([...testArr]));
-console.log(timing(sheikerSort)([...testArr]));
-console.log(timing(bubbleSort)([...testArr]));
-console.log(timing(arrayToBuckets)([...testArr]));
-console.log(timing(toParts)([1, 4, 5, 2, 3, 9, 8, 11, 0]));
-console.log(timing(reverseQueue)(generateList({show: true})));
-console.log(timing(treeInWidth)(generateBinaryTree([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], {})));
-console.log(timing(treeInDeep)(generateBinaryTree([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], {})));
-console.log(timing(RedBlackTreeDeep)(toRedBlackTree(mergeSort(generateArr({count: 30, otr: true})))));
 
-console.log(timers);
+const testArr = generateArr({count: 20, otr: true});
+// console.table(timing(horseToCell)({start: {x: 0, y: 0}, target: {x: 6, y: 5}}));
+// console.table(timing(get8FerziesMap)());
+ console.log(timing(generateScopes)(4));
+// console.log(timing(numberCombinations(4)));
+// console.log(timing(getMaxPartSum([...testArr])));
+// console.log(timing(spiralString)(5));
+// console.log(timing(getEasyNumbers)(1000));
+// console.log(timing(isAnagram)('1234', '3412'), isAnagram('1234', '1243'));
+// console.log(timing(balanceScope)('{()[{}]}'), balanceScope('{(){[}]}'));
+// console.log(timing(binarySearch)(mergeSort([...testArr]), testArr[Math.floor(Math.random() * testArr.length)]));
+// console.log(timing(hashSort)([...testArr]));
+// console.log(timing(mergeSort)([...testArr]));
+// console.log(timing(insertSort)([...testArr]));
+// console.log(timing(selectSort)([...testArr]));
+// console.log(timing(sheikerSort)([...testArr]));
+// console.log(timing(bubbleSort)([...testArr]));
+// console.log(timing(arrayToBuckets)([...testArr]));
+// console.log(timing(toParts)([1, 4, 5, 2, 3, 9, 8, 11, 0]));
+// console.log(timing(reverseQueue)(generateList({show: true})));
+// console.log(timing(treeInWidth)(generateBinaryTree([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], {})));
+// console.log(timing(treeInDeep)(generateBinaryTree([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], {})));
+
+// console.log(timers);
+
 
 
 // Массив чисел
-function generateArr({count = 20, max = 100, show = false, otr = false}) {
+function generateArr({count = 20, max = 100, show = false, otr = false} = {count: 20, max: 100}) {
     let arrData = [];
     for (let i = 0; i < count; i++) {
         const value = Math.floor(Math.random() * max);
@@ -102,20 +103,8 @@ function toRedBlackTree(arr, s = 0, e = arr.length, c = 'black') {
 }
 
 // Односвязный список
-function generateList({show = false} = {}) {
-    const list = {
-        value: 1,
-        next: {
-            value: 2,
-            next: {
-                value: 3,
-                next: {
-                    value: 4,
-                    next: null
-                }
-            }
-        }
-    };
+function generateList(arr, {show = false} = {}) {
+    const list = arr.reduce((acc, el) => ({next: acc, value: el}), null);
     if (show)
         console.log('Test list', list);
     return list;

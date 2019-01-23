@@ -11,11 +11,3 @@ export function binarySearch(d, t, s = 0, e = d.length) {
     if (t > d[m]) return binarySearch(d, t, m, e);
     if (t < d[m]) return binarySearch(d, t, s, m);
 }
-
-export function binaryPush(d, t, s = 0, e = d.length) {
-    const m = Math.floor((s + e) / 2);
-    if (t === d[m]) return m;
-    if (e - 1 === s) return e;
-    if (t > d[m]) return binaryPush(d, t, m, e);
-    if (t < d[m]) return binaryPush(d, t, s, m);
-}

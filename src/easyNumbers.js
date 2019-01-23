@@ -1,13 +1,19 @@
-export   function getEasyNumbers(number) {
-    const result = [2];
-    for (let value = 3; value < number; value += 2) {
-        let toAdd = true;
-        for (let j = 0; j < result.length && result[j] <= Math.sqrt(value); j++)
-            if (value % result[j] === 0) {
-                toAdd = false;
+export function getEasyNumbers(number) {
+    const result = [1, 2];
+    const stack = [3];
+
+    for (let i = 3; i <= number; i += 2) {
+        let toPush = true;
+        for (let j = 0; stack[j] <= Math.sqrt(i); j++) {
+            if (i % stack[j] === 0) {
+                toPush = false;
                 break;
             }
-        if (toAdd) result.push(value)
+        }
+        if (toPush) {
+            result.push(i);
+            stack.push(i);
+        }
     }
     return result;
 }
