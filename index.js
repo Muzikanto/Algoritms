@@ -3,7 +3,7 @@ import {balanceScope} from "./src/balanceScope.js";
 import {binarySearch} from "./src/binarySearch.js";
 import {bubbleSort} from "./src/bubbleSort.js";
 import {getEasyNumbers} from "./src/easyNumbers.js";
-import {get8FerziesMap} from "./src/ferzies.js";
+import {getQueensMap} from "./src/queensMap.js";
 import {generateScopes} from "./src/generateScopes.js";
 import {insertSort} from "./src/insertSort.js";
 import {mergeSort} from "./src/mergeSort.js";
@@ -22,6 +22,7 @@ import {joinArrays} from "./src/joinArrays.js";
 import {toParts} from "./src/arrayToParts.js";
 import {testObject} from "./test/object.js";
 import {ProxyTest} from "./test/proxy.js";
+import {arrayNumbersAndSigns} from "./src/arrayNumbersAndSign.js";
 
 
 const timers = {};
@@ -29,8 +30,9 @@ const timers = {};
 
 const testArr = generateArr({count: 20, otr: true});
 // console.table(timing(horseToCell)({start: {x: 0, y: 0}, target: {x: 6, y: 5}}));
-// console.table(timing(get8FerziesMap)());
- console.log(timing(generateScopes)(4));
+// console.table(timing(getQueensMap)());
+// console.log(timing(arrayNumbersAndSigns)([3, 2, '*', 5, '+', 3, '-']));
+// console.log(timing(generateScopes)(5));
 // console.log(timing(numberCombinations(4)));
 // console.log(timing(getMaxPartSum([...testArr])));
 // console.log(timing(spiralString)(5));
@@ -45,10 +47,10 @@ const testArr = generateArr({count: 20, otr: true});
 // console.log(timing(sheikerSort)([...testArr]));
 // console.log(timing(bubbleSort)([...testArr]));
 // console.log(timing(arrayToBuckets)([...testArr]));
-// console.log(timing(toParts)([1, 4, 5, 2, 3, 9, 8, 11, 0]));
-// console.log(timing(reverseQueue)(generateList({show: true})));
-// console.log(timing(treeInWidth)(generateBinaryTree([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], {})));
-// console.log(timing(treeInDeep)(generateBinaryTree([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], {})));
+// console.log(timing(toParts)([...testArr]));
+// console.log(timing(reverseQueue)(generateList([...testArr])));
+// console.log(timing(treeInWidth)(generateBinaryTree([...testArr])));
+// console.log(timing(treeInDeep)(generateBinaryTree([...testArr])));
 
 // console.log(timers);
 
@@ -170,10 +172,10 @@ function getTestRedBlackTree() {
 function timing(f) {
     return function () {
         const start = performance.now();
-        const result = f.apply(this, arguments);
+        const func = f.apply(this, arguments);
         if (!timers[f.name]) timers[f.name] = 0;
         timers[f.name] += performance.now() - start;
-        return result;
+        return func;
     }
 }
 

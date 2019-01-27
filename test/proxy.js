@@ -45,7 +45,7 @@ export const ProxyTest = () => {
 
 };
 
-()=> {
+const proxy = ()=> {
     const test = {
         one: 1,
         sum(a, b) {
@@ -76,4 +76,4 @@ export const ProxyTest = () => {
 
     console.log(proxy.sum(1, 2));
     console.log(proxy.one);
-}
+};

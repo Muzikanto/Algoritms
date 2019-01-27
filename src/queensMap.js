@@ -1,5 +1,5 @@
 // Расставить 8 ферзей на шахматной доске, чтобы не били друг друга
-export function get8FerziesMap() {
+export function getQueensMap() {
     let mapStart = [], queens = [], fields = [];
     for (let y = 0; y < 8; y++) {
         mapStart[y] = [];
