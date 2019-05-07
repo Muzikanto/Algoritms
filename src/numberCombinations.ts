@@ -1,6 +1,6 @@
 // Вывести все перестановки чисел о 1 до N
-export function numberCombinations(value) {
-    let arr = [];
+export function numberCombinations(value: number) {
+    let arr: number[][] = [];
     const count = getCount(value);
     for (let i = 0; i < count; i++) arr.push([]);
 
@@ -13,14 +13,14 @@ export function numberCombinations(value) {
         }
     }
 
-    function existsValue(checkArr, checkVal) {
+    function existsValue(checkArr: number[], checkVal: number) {
         for (const val of checkArr)
             if (val === checkVal)
                 return true;
         return false;
     }
 
-    function getDelValue(delCount) {
+    function getDelValue(delCount: number) {
         let delVal = count;
         for (let i = 0; i <= delCount; i++) {
             delVal /= (value - i);
@@ -28,7 +28,7 @@ export function numberCombinations(value) {
         return delVal;
     }
 
-    function getCount(value) {
+    function getCount(value: number) {
         let countValues = 1;
         for (let i = 1; i <= value; i++)
             countValues *= i;
@@ -36,4 +36,8 @@ export function numberCombinations(value) {
     }
 
     return arr;
+}
+
+export function testNumberCombinations() {
+    console.log(numberCombinations(4));
 }

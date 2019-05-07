@@ -1,6 +1,9 @@
 // Выбрать в массиве фрагмент с наибольшей суммой
-export function getMaxPartSum(arr) {
-    return arr.reduce((acc, el, i)=>{
+import {IObject} from "./typings";
+import {generateArr} from "../helpers";
+
+export function maxPartSum(arr: number[]) {
+    return arr.reduce((acc: IObject, _: number, i: number)=>{
         let part = 0;
         for (let j = i; j < arr.length; j++) {
             part += arr[j];
@@ -10,4 +13,9 @@ export function getMaxPartSum(arr) {
         }
         return acc;
     }, {v: arr[0]});
+}
+
+export function testMaxPartSum() {
+    const testArr = generateArr({count: 20, otr: true});
+    console.log(maxPartSum([...testArr]));
 }

@@ -1,5 +1,7 @@
 //Сортировка выбором
-export function selectSort(arr) {
+import {generateArr} from "../helpers";
+
+export function selectSort(arr: number[]) {
     let minIndex = 1;
     let currentIndex = 0;
     for (let i = 0; i < arr.length; i++) {
@@ -12,4 +14,9 @@ export function selectSort(arr) {
         minIndex = currentIndex;
     }
     return arr
+}
+
+export function testSelectSort() {
+    const testArr = generateArr({count: 20, otr: true});
+    console.log(selectSort([...testArr]));
 }

@@ -1,11 +1,13 @@
 // Баланс скобок в строке ({[
-export function balanceScope(str) {
-    const openBr = {
+import {IObject} from "./typings";
+
+export function balanceScope(str: string): boolean {
+    const openBr: IObject = {
         '(': ')',
         '[': ']',
         '{': '}'
     };
-    const closeBr = {
+    const closeBr: IObject = {
         ')': '(',
         ']': '[',
         '}': '{'
@@ -19,4 +21,8 @@ export function balanceScope(str) {
         }
     }
     return stack.length === 0;
+}
+
+export function testBalanceScope() {
+    console.log(balanceScope('{()[{}]}'), balanceScope('{(){[}]}'));
 }

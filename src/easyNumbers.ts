@@ -1,4 +1,4 @@
-export function getEasyNumbers(number) {
+export function easyNumbers(number: number) {
     const result = [1, 2];
     const stack = [3];
 
@@ -16,4 +16,8 @@ export function getEasyNumbers(number) {
         }
     }
     return result;
+}
+
+export function testEasyNumbers() {
+    console.log(easyNumbers(1000));
 }

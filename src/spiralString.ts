@@ -1,6 +1,6 @@
 //  Вывод чисел от 1 до N^2 по спирали
-export function spiralString(value) {
-    let arr = [];
+export function spiralString(value: number) {
+    let arr: string[][] = [];
     for (let i = 0; i < value; i++)
         arr[i] = [];
     let dx = 1, dy = 0;
@@ -37,4 +37,8 @@ export function spiralString(value) {
         i++;
     }
     return arr.reduce((acc, el) => `${acc}${el}\n`, '');
+}
+
+export function testSpiralString() {
+    console.log(spiralString(5));
 }

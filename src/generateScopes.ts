@@ -1,6 +1,6 @@
 // Генерация скобочных последовательностей
-export function generateScopes(count) {
-    return Array.from(Array(parseInt(new Array(count * 2).fill(1).join(''), 2)), (d, i) => i)
+export function generateScopes(count: number) {
+    return Array.from(Array(parseInt(new Array(count * 2).fill(1).join(''), 2)), (_, i) => i)
         .map(el => ((value) => (new Array(count * 2 - value.length).fill(0).join('')) + value)(el.toString(2)))
         .filter((el) => ((str) => {
             const stack = [];
@@ -14,4 +14,8 @@ export function generateScopes(count) {
             return stack.length === 0
         })(el))
         .map((el) => el.replace(/0/gi, "(").replace(/1/gi, ")"))
+}
+
+export function testGenerateScopes() {
+    console.log(generateScopes(5));
 }

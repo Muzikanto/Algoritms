@@ -1,5 +1,7 @@
 // Сортировка слиянием
-export function mergeSort(arr) {
+import {generateArr} from "../helpers";
+
+export function mergeSort(arr: number[]) {
     let one = arr.slice(0, Math.floor(arr.length / 2));
     if (one.length > 1)
         one = mergeSort(one);
@@ -15,4 +17,9 @@ export function mergeSort(arr) {
             newArr.push(two[i2++]);
     }
     return newArr;
+}
+
+export function testMergeSort() {
+    const testArr = generateArr({count: 20, otr: true});
+    console.log(mergeSort([...testArr]));
 }

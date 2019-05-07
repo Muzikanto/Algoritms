@@ -1,5 +1,7 @@
 // Сортировка массива шейкер
-export function sheikerSort(arr) {
+import {generateArr} from "../helpers";
+
+export function sheikerSort(arr:number[]) {
     let resultMin = [];
     let resultMax = [];
     while (arr.length > 1) {
@@ -18,4 +20,9 @@ export function sheikerSort(arr) {
         ...resultMin,
         ...resultMax.reverse()
     ];
+}
+
+export function testSheikerSort() {
+    const testArr = generateArr({count: 20, otr: true});
+    console.log(sheikerSort([...testArr]));
 }

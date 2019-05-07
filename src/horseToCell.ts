@@ -1,5 +1,5 @@
 export function horseToCell({start = {x: 0, y: 0}, target = {x: 0, y: 1}}) {
-    const mapStart = [];
+    const mapStart: Array<Array<string | number>> = [];
     let horse = start;
     for (let y = 0; y < 8; y++) {
         mapStart[y] = [];
@@ -48,7 +48,7 @@ export function horseToCell({start = {x: 0, y: 0}, target = {x: 0, y: 1}}) {
             }
         }
 
-        mapStart[horse.y][horse.x] =  currentStep++;
+        mapStart[horse.y][horse.x] = currentStep++;
         if (horse.x === target.x && horse.y === target.y) {
             mapStart[horse.y][horse.x] = 'X';
             break;
@@ -56,7 +56,7 @@ export function horseToCell({start = {x: 0, y: 0}, target = {x: 0, y: 1}}) {
     }
 
 
-    function jumpHorizontal(h, t) {
+    function jumpHorizontal(h: {x: number, y: number}, t: {x: number, y: number}) {
         let dx = 0, dy = 0;
         if (t.x > h.x) {
             dx = 2;
@@ -75,7 +75,7 @@ export function horseToCell({start = {x: 0, y: 0}, target = {x: 0, y: 1}}) {
         h.y += dy;
     }
 
-    function jumpVertical(h, t) {
+    function jumpVertical(h: {x: number, y: number}, t: {x: number, y: number}) {
         let dx = 0, dy = 0;
         if (t.y > h.y) dy = 2;
         else dy = -2;
@@ -91,7 +91,7 @@ export function horseToCell({start = {x: 0, y: 0}, target = {x: 0, y: 1}}) {
         h.y += dy;
     }
 
-    function* reverseY(h, t) {
+    function* reverseY(h: {x: number, y: number}, t: {x: number, y: number}) {
         if (t.y > h.y) {
             if (h.y <= 4) {
                 if (h.x + 2 < 8) {
@@ -140,7 +140,7 @@ export function horseToCell({start = {x: 0, y: 0}, target = {x: 0, y: 1}}) {
         return false;
     }
 
-    function* reverseX(h, t) {
+    function* reverseX(h: {x: number, y: number}, t: {x: number, y: number}) {
         if (t.x > h.x) {
             if (h.x <= 4) {
                 if (h.y + 2 < 8) {
@@ -190,9 +190,14 @@ export function horseToCell({start = {x: 0, y: 0}, target = {x: 0, y: 1}}) {
         return false;
     }
 
-    function* jumpXY(h, t) {
+    // @ts-ignore
+    function* jumpXY(h: {x: number, y: number}, t: {x: number, y: number}) {
         reverse = reverseX(h, t);
     }
 
     return mapStart;
+}
+
+export function test() {
+    console.table(horseToCell({start: {x: 0, y: 0}, target: {x: 6, y: 5}}));
 }

@@ -1,5 +1,5 @@
 // Анаграммы
-export function isAnagram(str1, str2) {
+export function isAnagram(str1: string, str2: string): boolean {
     if (str1.length !== str2.length)
         return false;
     let razn = str2.indexOf(str1[0]);
@@ -21,4 +21,8 @@ export function isAnagram(str1, str2) {
         }
     }
     return isAnagram2;
+}
+
+export function testAnagram() {
+    console.log(isAnagram('1234', '3412'), isAnagram('1234', '1243'))
 }

@@ -1,5 +1,7 @@
 // Сортировка вставками
-export function insertSort(arr) {
+import {generateArr} from "../helpers";
+
+export function insertSort(arr: number[]) {
     for (let i = 1; i < arr.length; i++) {
         if (arr[i] < arr[i - 1]) {
             let current = i - 1;
@@ -12,4 +14,9 @@ export function insertSort(arr) {
         }
     }
     return arr
+}
+
+export function test() {
+    const testArr = generateArr({count: 20, otr: true});
+    console.log(insertSort([...testArr]));
 }

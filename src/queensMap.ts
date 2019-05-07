@@ -1,6 +1,6 @@
 // Расставить 8 ферзей на шахматной доске, чтобы не били друг друга
-export function getQueensMap() {
-    let mapStart = [], queens = [], fields = [];
+export function queensMap() {
+    let mapStart: string[][] = [], queens = [], fields: string[][][] = [];
     for (let y = 0; y < 8; y++) {
         mapStart[y] = [];
         queens[y] = {x: 0, y: 0};
@@ -32,7 +32,7 @@ export function getQueensMap() {
         }
     }
 
-    function getField(queen, field) {
+    function getField(queen: {x: number, y: number}, field: string[][]) {
         if (field[queen.y][queen.x] != '')
             return null;
         for (let y = queen.y; y < 8; y++) {
@@ -45,8 +45,8 @@ export function getQueensMap() {
         return null;
     }
 
-    function checkPlaceFerz(testMap, {x, y}) {
-        const secondMap = [];
+    function checkPlaceFerz(testMap: string[][], {x, y}: {x: number, y: number}) {
+        const secondMap: Array<Array<string>> = [];
         for (const arr of testMap) {
             secondMap.push([...arr]);
         }
@@ -54,16 +54,20 @@ export function getQueensMap() {
         for (const vector of vectors) {
             let testX = x, testY = y;
             while (testX >= 0 && testY >= 0 && testX < 8 && testY < 8) {
-                if (secondMap[testY][testX] === 1)
+                if (secondMap[testY][testX] === '1')
                     return null;
-                secondMap[testY][testX] = 0;
+                secondMap[testY][testX] = '';
                 testY += vector[0];
                 testX += vector[1];
             }
         }
-        secondMap[y][x] = 1;
+        secondMap[y][x] = '1';
         return secondMap;
     }
 
     return fields[fields.length - 1];
+}
+
+export function testQueensMap() {
+    console.table(queensMap());
 }
