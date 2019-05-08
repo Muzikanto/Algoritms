@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../dist/index.js"></script>
+    <style>
+        .container {
+            width: 505px;
+            height: 505px;
+            background: greenyellow;
+            line-height:0;
+        }
+
+        .container > div {
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+        }
+
+        .white {
+            background: white;
+        }
+
+        .black {
+            background: black;
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="container"></div>
+<script>
+    const map = labirint({width: 101, height: 101});
+
+    for (let i = 0; i < 101; i++) {
+        for (let j = 0; j < 101; j++) {
+            const el = document.createElement('div');
+            el.className = map[i][j] ? 'white' : 'black';
+            document.getElementById('container').appendChild(el);
+        }
+    }
+
+</script>
+</body>
+</html>
